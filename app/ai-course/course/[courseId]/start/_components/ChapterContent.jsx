@@ -31,7 +31,7 @@ function ChapterContent({ chapter, content }) {
             {item?.["Code Example"] != "Not Applicable" &&
               <div className='p-4 bg-black text-white rounded-md mt-3'>
                 <pre>
-                  <code>
+                  <code className='text-wrap'>
                     {item?.["Code Example"]?.replace(/<\/?precode>/g, '')}
                   </code>
                 </pre>

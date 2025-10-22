@@ -48,10 +48,10 @@ const PersonalRoom = () => {
       });
     }
 
-    router.push(`/meeting/${meetingId}?personal=true`);
+    router.push(`/videocall/meeting/${meetingId}?personal=true`);
   };
 
-  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingId}?personal=true`;
+  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/videocall/meeting/${meetingId}?personal=true`;
 
   return (
     <section className="flex size-full flex-col gap-10 text-white">

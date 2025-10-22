@@ -97,14 +97,14 @@ const CallList = ({ type }) => {
             link={
               type === 'recordings'
                 ? meeting.url
-                : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting.id}`
+                : `${process.env.NEXT_PUBLIC_BASE_URL}/videocall/meeting/${meeting.id}`
             }
             buttonIcon1={type === 'recordings' ? '/icons/play.svg' : undefined}
             buttonText={type === 'recordings' ? 'Play' : 'Start'}
             handleClick={
               type === 'recordings'
                 ? () => router.push(meeting.url)
-                : () => router.push(`/meeting/${meeting.id}`)
+                : () => router.push(`/videocall/meeting/${meeting.id}`)
             }
           />
         ))

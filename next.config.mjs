@@ -2,7 +2,7 @@
 const nextConfig = {
     images: {
         remotePatterns: [{
-            
+
             protocol: 'https',
             hostname: 'images.unsplash.com',
         },
@@ -13,7 +13,11 @@ const nextConfig = {
         {
             protocol: 'https',
             hostname: 'cdn-icons-png.flaticon.com',
-        }],
+        },
+        {
+            hostname: "cdn.sanity.io",
+            protocol: "https",
+        },],
     },
 };
 

@@ -20,12 +20,12 @@ function SelectOption() {
     }
     return (
         <div className='px-10 md:px-20 lg:px-44'>
-            <div className='grid grid-cols-2'>
+            <div className='grid grid-cols-2 gap-5'>
                 <div>
                     <label className='text-sm'>Difficulty Level</label>
 
                     <Select onValueChange={(value) => handleInputChanges('difficulty', value)} defaultValue={userCourseInput?.difficulty}>
-                        <SelectTrigger className="">
+                        <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="">
@@ -37,9 +37,8 @@ function SelectOption() {
                 </div>
                 <div>
                     <label className='text-sm'>Course Duration</label>
-
                     <Select onValueChange={(value) => handleInputChanges('duration', value)} defaultValue={userCourseInput?.duration}>
-                        <SelectTrigger className="">
+                        <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="">
@@ -50,10 +49,9 @@ function SelectOption() {
                     </Select>
                 </div>
                 <div>
-                    <label className='text-sm'>Add Video</label>
-
+                    <label className='text-sm '>Add Video</label>
                     <Select onValueChange={(value) => handleInputChanges('video', value)} defaultValue={userCourseInput?.video}>
-                        <SelectTrigger className="">
+                        <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent className="">

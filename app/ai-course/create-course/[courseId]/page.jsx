@@ -55,7 +55,11 @@ function CourseLayout({ params }) {
                       - title
                       - explanation (detailed)
                       - Code Example (enclosed in <precode> tags if applicable).
-                      Only return valid JSON.
+                      - "quiz": an array of quiz question objects. Each quiz question object must have:
+                            - "question": string
+                            - "options": array of strings (minimum 2, max 6)
+                            - "correct_index": integer (0-based index pointing to the correct option in "options")
+                      Return plain JSON only. Make sure the JSON is parseable by standard JSON.parse. Use keys exactly as specified: title, explanation, code Example, quiz, question, options, correct_index.
                       `;
 
       try {
