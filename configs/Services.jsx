@@ -18,7 +18,8 @@ const getVideos = async (query) => {
         q: query,
         type: 'video',
         maxResults: 10,  
-        order: 'relevance',  
+        order: 'relevance',
+        relevanceLanguage: 'en',  
         key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY
     };
 

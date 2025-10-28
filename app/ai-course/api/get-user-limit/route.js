@@ -7,7 +7,7 @@ import { getAuth } from "@clerk/nextjs/server";
 export async function GET(request) {
     try {
         const { userId } = getAuth(request);
-        console.log("user id",userId)
+        
         if (!userId) return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
 
         const [user] = await db.select().from(Users).where(eq(Users.clerkUserId, userId));

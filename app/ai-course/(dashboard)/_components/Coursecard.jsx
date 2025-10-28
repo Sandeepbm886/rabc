@@ -55,7 +55,7 @@ function CourseCard({ course, refreshData, displayUser = false, explorePage }) {
         <p className='text-sm text-gray-400 my-1'>{course?.category}</p>
         <div className='flex items-center justify-between'>
           <h2 className='flex gap-2 items-center p-1 bg-purple-50 text-primary text-sm'>
-            <LuBookOpenText />{course?.courseOutput?.["No.of Chapters"]||course?.courseOutput?.["Chapters"].length} Chapters
+            <LuBookOpenText />{course?.courseOutput?.["No.of Chapters"]||course?.courseOutput?.["Chapters"]?.length||0} Chapters
           </h2>
           <h2 className='text-sm bg-purple-50 text-primary p-1 rounded-sm'>
             {course?.level} Level
