@@ -55,9 +55,27 @@ function CreateCourse() {
     return false;
   }
   const hadelGenerateCourse = async () => {
+    const RULES_PROMPT = `
+You are a strict JSON formatter. 
+Return the output **only** as valid JSON with no extra commentary, no markdown, and no surrounding backticks.
+
+The JSON object MUST use EXACTLY the following keys (case-sensitive, spelling-sensitive):
+"Course Name", "Description", "Category", "Topic", "Difficulty Level", "Duration", "Chapters"
+
+Inside "Chapters", each item MUST contain ONLY these keys:
+"Chapter Name", "about", "Duration"
+
+Rules you MUST follow:
+1. Do NOT change the key names (case or underscore variations are not allowed). 
+2. Do NOT add extra keys or remove any required ones.
+3. Do NOT return markdown formatting or code fences.
+4. "Chapters" must be an array of chapter objects using the exact keys above.
+5. The JSON must be valid and parsable.
+
+`
     const BASIC_PROMPT = 'Generate A Course Tutorial on Following Detail With field as Course Name, Description, Along with Chapter Name, about, Duration:';
     const USER_INPUT_PROMPT = 'Category: ' + userCourseInput?.category + ', Topic: ' + userCourseInput?.topic + ', Difficulty Level: ' + userCourseInput?.difficulty + ', Duration: ' + userCourseInput?.duration + ', No.of Chapters: ' + userCourseInput?.chapters + ', in JSON format';
-    const FINAL_PROMPT = BASIC_PROMPT + USER_INPUT_PROMPT;
+    const FINAL_PROMPT = RULES_PROMPT+BASIC_PROMPT + USER_INPUT_PROMPT;
 
 
     try {

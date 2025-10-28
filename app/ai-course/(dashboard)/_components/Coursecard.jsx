@@ -47,9 +47,9 @@ function CourseCard({ course, refreshData, displayUser = false, explorePage }) {
   return (
 
     <div className='shadow-sm rounded-lg border p-2 hover:scale-105 transition-all  mt-4'>
-      <Image src={imgUrl} alt={course?.courseOutput?.["Course Name"]} width={300} height={200} className='w-full h-[200px] object-cover rounded-lg' />
+      <Image src={imgUrl} alt={course?.courseOutput?.["Course Name"]||course?.courseOutput?.["course_name"]} width={300} height={200} className='w-full h-[200px] object-cover rounded-lg' />
       <div className='p-2'>
-        <h2 className='font-medium text-lg flex justify-between'>{course?.courseOutput?.["Course Name"]}
+        <h2 className='font-medium text-lg flex justify-between'>{course?.courseOutput?.["Course Name"]||course?.courseOutput?.["course_name"]}
           <DropDownMenu handelOnDelete={() => handelOnDelete()} explorePage={explorePage} course={course}><BsThreeDotsVertical  className='cursor-pointer' /></DropDownMenu>
         </h2>
         <p className='text-sm text-gray-400 my-1'>{course?.category}</p>
