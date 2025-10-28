@@ -16,13 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "YOOM",
-  description: "Video calling App",
-  icons: {
-    icon: "/icons/logo.svg",
-  },
-};
+
 
 export default function RootLayout({
   children,
