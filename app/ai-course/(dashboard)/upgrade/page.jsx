@@ -67,21 +67,21 @@ export default function PaymentPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         <PaymentCard
           title="Basic Plan"
-          description="Payment for basic tier"
+          description="Create upto 10 courses"
           amount={100}
           onPay={handlePayment}
           imgurl={"/payments.png"}
         />
         <PaymentCard
           title="Premium Plan"
-          description="For premium tier"
+          description="Create upto 25 courses"
           amount={399}
           onPay={handlePayment}
           imgurl={"/businesspayments.jpg"}
         />
         <PaymentCard
           title="Premium Plus Plan"
-          description="For enterprise tier"
+          description="Create upto 50 courses"
           amount={999}
           onPay={handlePayment}
           imgurl={"/premiumpayments.jpg"}
