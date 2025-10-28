@@ -1,7 +1,10 @@
 "use client";
 import React, { useMemo, useState, useEffect } from "react";
+import { db } from "../../../../../../configs/db";
+import { Chapters } from "../../../../../../configs/schema";
+import { eq, and } from "drizzle-orm";
 
-export default function ChapterQuiz({ content = [] }) {
+export default function ChapterQuiz({ content = [], courseId, chapterId }) {
     // Normalize content: keep only steps that have quiz arrays
     const steps = useMemo(() => {
         return (content || [])
@@ -15,15 +18,15 @@ export default function ChapterQuiz({ content = [] }) {
 
     const totalSteps = steps.length;
 
-    // state
-    const [stepIndex, setStepIndex] = useState(0); // current step
-    const [qIndex, setQIndex] = useState(0); // current question
+    // State
+    const [stepIndex, setStepIndex] = useState(0);
+    const [qIndex, setQIndex] = useState(0);
     const [answersByStep, setAnswersByStep] = useState(
         steps.map((s) => s.quiz.map(() => ({ selectedIndex: null, answered: false })))
     );
     const [reviewMode, setReviewMode] = useState(false);
 
-    // Reset state whenever steps change (i.e., when switching to another quiz)
+    // Reset state when steps change
     useEffect(() => {
         setStepIndex(0);
         setQIndex(0);
@@ -33,6 +36,7 @@ export default function ChapterQuiz({ content = [] }) {
         setReviewMode(false);
     }, [steps]);
 
+    // No quizzes fallback
     if (totalSteps === 0) {
         return (
             <div className="max-w-3xl mx-auto p-6 text-center">
@@ -41,10 +45,27 @@ export default function ChapterQuiz({ content = [] }) {
         );
     }
 
-    // Safe access to current step and question
     const step = steps[stepIndex] || { quiz: [] };
     const question = step.quiz[qIndex] || { options: [], correct_index: null, question: "" };
 
+    // --- Update Quiz Marks in DB ---
+    async function updateQuizMarks(correct, total) {
+        try {
+            await db
+                .update(Chapters)
+                .set({
+                    quizMarks: correct,
+                    finished: true,
+                    totalquizquestions:total
+                })
+                .where(and(eq(Chapters.courseId, courseId), eq(Chapters.chapterId, chapterId)));
+            console.log(`✅ Updated quiz marks: ${correct}/${total} for chapter ${chapterId}`);
+        } catch (error) {
+            console.error("❌ Error updating quiz marks:", error);
+        }
+    }
+
+    // --- Helpers ---
     function handleSelect(optionIndex) {
         setAnswersByStep((prev) => {
             const copy = prev.map((arr) => arr.slice());
@@ -104,6 +125,15 @@ export default function ChapterQuiz({ content = [] }) {
 
     const atStepSummary = qIndex >= step.quiz.length;
 
+    // Auto-update marks when final summary reached
+    useEffect(() => {
+        if (stepIndex + 1 === totalSteps && atStepSummary) {
+            const total = computeTotalScore();
+            updateQuizMarks(total.correct, total.total);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [stepIndex, atStepSummary]);
+
     // --- REVIEW MODE ---
     if (reviewMode) {
         return (
@@ -146,7 +176,8 @@ export default function ChapterQuiz({ content = [] }) {
             </div>
         );
     }
-    // --- REST OF THE ORIGINAL COMPONENT REMAINS UNCHANGED ---
+
+    // --- QUIZ UI ---
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-sm">
             <header className="mb-4">
@@ -228,20 +259,6 @@ export default function ChapterQuiz({ content = [] }) {
                                 </span>
                             </div>
                         </div>
-
-                        <div className="mt-4">
-                            {answersByStep[stepIndex]?.[qIndex]?.answered && (
-                                <div>
-                                    {answersByStep[stepIndex][qIndex].selectedIndex === question.correct_index ? (
-                                        <div className="text-green-700 font-medium">✅ Correct</div>
-                                    ) : (
-                                        <div className="text-red-700 font-medium">
-                                            ❌ Incorrect — correct answer: <span className="font-semibold">{question.options[question.correct_index]}</span>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </div>
                     </div>
                 ) : (
                     <div>
@@ -300,10 +317,6 @@ export default function ChapterQuiz({ content = [] }) {
                                     {stepIndex + 1 < totalSteps ? "Next Step" : "Finish Quiz"}
                                 </button>
                             </div>
-
-                            <div className="text-sm text-gray-700">
-                                <strong>{computeStepScore(stepIndex).correct}</strong> / {computeStepScore(stepIndex).total} correct in this step
-                            </div>
                         </div>
                     </div>
                 )}
@@ -326,7 +339,11 @@ export default function ChapterQuiz({ content = [] }) {
 
                     <div className="mt-4">
                         <button
-                            onClick={() => setReviewMode(true)}
+                            onClick={() => {
+                                const total = computeTotalScore();
+                                updateQuizMarks(total.correct, total.total);
+                                setReviewMode(true);
+                            }}
                             className="px-3 py-1 rounded bg-green-600 text-white"
                         >
                             Review Answers

@@ -31,16 +31,23 @@ function UserCourseList() {
 
 
   return (
-    <div className='mt-10'>
-      {courseList.length > 0 && (
+    <div className="mt-10">
+      {courseList.length > 0 ? (
         <>
-          <h2 className='font-medium text-xl'>My AI Courses</h2>
-          <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 '>
+          <h2 className="font-medium text-xl">My AI Courses</h2>
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {courseList.map((course, index) => (
-              <CourseCard course={course} key={index} refreshData={() => getUserCourses()} explorePage={false} />
+              <CourseCard
+                course={course}
+                key={index}
+                refreshData={() => getUserCourses()}
+                explorePage={false}
+              />
             ))}
           </div>
         </>
+      ) : (
+        <p className="text-gray-500 italic text-center">No courses created.</p>
       )}
     </div>
   )

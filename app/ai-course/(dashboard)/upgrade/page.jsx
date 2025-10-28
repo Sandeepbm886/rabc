@@ -23,13 +23,14 @@ export default function PaymentPage() {
         description: `${amount} INR plan`,
         order_id: data.orderID,
         handler: async function (response) {
-          const verifyRes = await fetch("/api/verify-payment", {
+          const verifyRes = await fetch("/ai-course/api/verify-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
+              amount,
             }),
           });
 
@@ -65,22 +66,25 @@ export default function PaymentPage() {
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         <PaymentCard
-          title="Basic Payment"
+          title="Basic Plan"
           description="Payment for basic tier"
           amount={100}
           onPay={handlePayment}
+          imgurl={"/payments.png"}
         />
         <PaymentCard
-          title="Premium Payment"
+          title="Premium Plan"
           description="For premium tier"
           amount={399}
           onPay={handlePayment}
+          imgurl={"/businesspayments.jpg"}
         />
         <PaymentCard
-          title="Enterprise Payment"
+          title="Premium Plus Plan"
           description="For enterprise tier"
           amount={999}
           onPay={handlePayment}
+          imgurl={"/premiumpayments.jpg"}
         />
       </div>
     </div>

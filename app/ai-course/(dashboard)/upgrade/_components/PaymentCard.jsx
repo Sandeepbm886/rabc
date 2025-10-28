@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function PaymentCard({ title, description, amount, onPay }) {
+export default function PaymentCard({ title, description, amount, onPay,imgurl }) {
     const [processing, setProcessing] = useState(false);
 
     const handlePay = async () => {
@@ -13,7 +13,7 @@ export default function PaymentCard({ title, description, amount, onPay }) {
     return (
         <div className="shadow-sm rounded-lg border p-2 hover:scale-105 transition-all mt-4">
             <Image
-                src="/payments.png"
+                src={imgurl}
                 alt={title}
                 width={300}
                 height={200}

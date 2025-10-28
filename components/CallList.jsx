@@ -109,7 +109,7 @@ const CallList = ({ type }) => {
           />
         ))
       ) : (
-        <h1 className="text-2xl font-bold text-white">{noCallsMessage}</h1>
+        <h1 className="text-2xl font-bold text-black">{noCallsMessage}</h1>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react'
 import YouTube from 'react-youtube'
 import ReactMarkdown from 'react-markdown'
+import { Button } from '@/components/ui/button';
 const opts = {
   height: '390',
   width: '640',
@@ -10,14 +11,15 @@ const opts = {
   },
 };
 
-function ChapterContent({ chapter, content }) {
+function ChapterContent({ chapter, content,onNext }) {
   return (
     <div className='p-10'>
       <h2 className='font-medium text-2xl'>{chapter?.["Chapter Name"]}</h2>
       <p className='text-gray-500'>{chapter?.["about"]}</p>
+      {content?.videoId?
       <div className='flex justify-center  my-6'>
         <YouTube videoId={content?.videoId} opts={opts} />
-      </div>
+      </div>:""}
 
       <div>
         {content?.content?.map((item, index) => (
@@ -39,6 +41,7 @@ function ChapterContent({ chapter, content }) {
           </div>
         ))}
       </div>
+      
     </div>
   )
 }

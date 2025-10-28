@@ -9,7 +9,7 @@ import { HomeIcon } from "lucide-react";
 export const sidebarLinks=[
     {
         label:'Home',
-        route:'/user',
+        route:'/ai-course',
         imgUrl:<HomeIcon/>
     },
     {

@@ -7,7 +7,9 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "typegen":"sanity schema extract && sanity typegen generate"
+    "typegen":"sanity schema extract && sanity typegen generate",
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:push": "drizzle-kit push"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.33.3",

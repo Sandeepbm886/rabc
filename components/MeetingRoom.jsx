@@ -56,14 +56,14 @@ const MeetingRoom = () => {
           <CallLayout />
         </div>
         <div
-          className={cn('h-[calc(100vh-86px)] hidden ml-2', showParticipants ? 'block w-full max-w-[350px]' : 'hidden')}
+          className={cn('h-[calc(100vh-86px)] hidden ml-2', showParticipants ? 'block w-full max-w-[350px] text-amber-700' : 'hidden')}
         >
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
       </div>
       {/* video layout and call controls */}
       <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
-        <CallControls onLeave={() => router.push(`/`)} />
+        <CallControls onLeave={() => router.push(`/videocall`)} />
 
         <DropdownMenu>
           <div className="flex items-center">
@@ -71,7 +71,7 @@ const MeetingRoom = () => {
               <LayoutList size={20} className="text-white" />
             </DropdownMenuTrigger>
           </div>
-          <DropdownMenuContent className="border-darkone bg-darkone text-white">
+          <DropdownMenuContent className="border-darkone bg-darkone text-black">
             {['Grid', 'Speaker-Left', 'Speaker-Right'].map((item, index) => (
               <div key={index}>
                 <DropdownMenuItem
